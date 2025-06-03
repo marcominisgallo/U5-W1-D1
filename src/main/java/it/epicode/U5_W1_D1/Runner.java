@@ -20,22 +20,18 @@ public class Runner implements CommandLineRunner {
     private Menu menu;
 
     @Override
-    public void run(String... args) throws Exception {
-
-        //serve per accedere al contesto di Spring e ai suoi bean
-        AnnotationConfigApplicationContext ctx =
-                new AnnotationConfigApplicationContext(U5W1D1Application.class);
-
-        Drink water = ctx.getBean(Drink.class);
+    public void run(String... args) {
+        // Usa direttamente i bean dal menu
+        Drink water = menu.getDrinks().get(0);
         System.out.println("drink " + water);
 
-        Topping t1 = ctx.getBean("mozzarella", Topping.class);
+        Topping t1 = menu.getToppings().stream().filter(t -> t.getNome().equals("Mozzarella")).findFirst().orElse(null);
         System.out.println("t1 " + t1);
 
-        Topping t2 = ctx.getBean("tomato", Topping.class);
+        Topping t2 = menu.getToppings().stream().filter(t -> t.getNome().equals("Pomodoro")).findFirst().orElse(null);
         System.out.println("t2 " + t2);
 
-        Pizza p = ctx.getBean(Pizza.class);
+        Pizza p = menu.getPizze().get(0);
         System.out.println("pizza " + p);
 
         menu.stampaMenu();
