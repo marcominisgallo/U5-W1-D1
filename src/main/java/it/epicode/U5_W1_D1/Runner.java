@@ -1,9 +1,11 @@
 package it.epicode.U5_W1_D1;
 
 import it.epicode.U5_W1_D1.bean.Drink;
+import it.epicode.U5_W1_D1.bean.Menu;
 import it.epicode.U5_W1_D1.bean.Pizza;
 import it.epicode.U5_W1_D1.bean.Topping;
 import it.epicode.U5_W1_D1.configuration.AppConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.annotation.Order;
@@ -13,6 +15,9 @@ import org.springframework.stereotype.Component;
 @Component //serve a spring di gestire a completamente questa classe.
 @Order(1) //serve a dare un ordine di esecuzione a questa classe.
 public class Runner implements CommandLineRunner {
+
+    @Autowired
+    private Menu menu;
 
     @Override
     public void run(String... args) throws Exception {
@@ -32,5 +37,7 @@ public class Runner implements CommandLineRunner {
 
         Pizza p = ctx.getBean(Pizza.class);
         System.out.println("pizza " + p);
+
+        menu.stampaMenu();
     }
 }
